@@ -5,6 +5,7 @@ import { shape, rank, zeroTensor } from "../tensor.js";
 
 test("mos -- shape", () =>{
     assert.deepEqual(shape(1), [])
+    assert.deepEqual(shape([]), [0])
     assert.deepEqual(shape([1, 2, 3]), [3])
     assert.deepEqual(shape([[1], [2], [3]]), [3, 1])
 })
