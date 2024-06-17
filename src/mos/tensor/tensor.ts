@@ -13,6 +13,10 @@ export function isScalar(t: Tensor): t is number {
     return typeof(t) === "number"
 }
 
+export function isNotScalar(t: Tensor): t is Tensor[]{
+    return Array.isArray(t)
+} 
+
 export function isTensor1(t: Tensor): t is Array<number> {
     return rank(t) == 1
 }
@@ -25,6 +29,12 @@ export function assertScalar(t: Tensor): asserts t is number {
     if (!isScalar(t)) {
         throw new Error(`[assertScalar] ${t}`)
     } 
+}
+
+export function assertNotScalar(t: Tensor): asserts t is Tensor[] {
+    if (!isNotScalar(t)) {
+        throw new Error(`[assertNotScalar]${t}`)
+    }
 }
 
 export function assertTensor1(t: Tensor): asserts t is Array<number> {
@@ -43,6 +53,7 @@ export function shape(t: Tensor): Array<number> {
     if (isScalar(t)) {
         return []
     }
+    if (t.length === 0) {return [0]}
     else {
         return [t.length].concat(shape(t[0]))
     }
